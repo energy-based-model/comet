@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Unsupervised Learning of Compositional Energies">
+    <meta name="author"
+          content="Yilun Du, Shuang Li, Yash Sharma, Joshua B. Tenenbaum, Igor Mordatch">
+
+    <title>Unsupervised Learning of Compositional Energies</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="offcanvas.css" rel="stylesheet">
+    <!--    <link rel="icon" href="img/favicon.gif" type="image/gif">-->
+</head>
+
+<body>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container"></div>
+    <h2>Unsupervised Learning of Compositional Energies</h2>
+    <!--    <h3></h3>-->
+    <hr>
+    <p class="authors">
+        <a href="https://yilundu.github.io">Yilun Du</a>,
+        <a href="https://people.csail.mit.edu/lishuang/"> Shuang Li</a>,
+        <a href="https://www.yash-sharma.com/"> Yash Sharma</a>,
+        <a href="https://mitibmwatsonailab.mit.edu/people/joshua-tenenbaum/"> Joshua B. Tenenbaum</a>,
+        <a href="">Igor Mordatch</a>
+    </p>
+    <div class="btn-group" role="group" aria-label="Top menu">
+        <a class="btn btn-primary" href="">Paper</a>
+        <a class="btn btn-primary disabled" href="index.html">Code</a>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="section">
+        <div class="row align-items-center">
+            <div class="col justify-content-center text-center">
+                <video width="80%" playsinline="" autoplay="" loop="" preload="" muted="">
+                    <source src="img/comet_data.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+        <hr>
+        <p>
+            Humans are able to rapidly understand scenes by utilizing concepts extracted from prior experience. Such concepts 
+            are diverse, and include global scene descriptors, such as the weather or lighting, as well as local scene descriptors, 
+            such as the color or size of a particular object. So far, unsupervised discovery of concepts has focused on either 
+            modeling the global scene-level or the local object-level factors of variation, but not both. In this work, we propose COMET,
+            which discovers and represents concepts as separate energy functions, enabling us to represent both global concepts as well as
+            objects under a unified framework. COMET discovers energy functions through recomposing the input image, which we find captures
+            independent factors without additional supervision. Sample generation in COMET is formulated as an optimization process on underlying
+            energy functions, enabling us to generate images with permuted and composed concepts.  Finally, discovered visual concepts in COMET 
+            generalize well, enabling us to compose concepts between separate modalities of images as well as with other concepts discovered by a separate
+            instance of COMET model trained on a different dataset.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>The trouble with &beta;-VAE, MONET & Co.</h2>
+        <hr>
+        <p>
+            Unsupervised discovery of visual concepts has received great success, and has seen applications in reinforcement learning and planning. 
+            Despite this, existing unsupervised decomposition mbethods are, to date, limited in their underlying applications. One underlying weakness is that
+            they are often tailored to the particular type of concept considered, with approaches such as the &beta;-VAE excelling at representing
+            global factors of variation, and other approaches such as MONET excelling at representing underlying object factors of variation. Furthermore,
+            inferred concepts in either case do not generalize well. While humans are able to combine concepts learned from one experience with those from another 
+            - there does not exist an easy way to combine a concept inferred from one dataset with another concept inferred from a separate dataset.
+        </p>
+
+    </div>
+
+    <div class="section">
+        <h2>Composable Energy Network</h2>
+        <hr>
+        <p>
+            We introduce Composable Energy Network, or short COMET, which overcomes these difficulties. COMET discovers and represents visual concepts
+            as a set of <b>composable energy functions</b>. Each individual inferred energy function defines a separate <b>equilibrium state</b> which 
+            represents either a global or local factor of variations. Multiple energy functions are then composed together through summation to define a new equilibrium
+            state consisting of each specified factor of variation. Individual composed energy functions <b>generalize well</b> and can be composed with 
+            energy functions inferred by other COMET models on <b>disjoint</b> datasets. We illustrate <b>equilibrium states</b> of decomposed and 
+            recombined energy functions representing global factors of variation below.
+        </p>
+        <div class="row align-items-center">
+            <div class="col justify-content-center text-center">
+                <video width="80%" playsinline="" autoplay="" loop="" preload="" muted="">
+                    <source src="img/global_decomp.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Object Level Decomposition </h2>
+        <hr>
+        <p>
+            We further illustrate decomposed and recombined energy functions representing local object factors of variation below.
+            By recombining a large number of separate energy functions, we may further generate scenes with large and increased number
+            of underlying objects. Our approach enables us to decompose and recombine energy functions representing both local and global factors of
+            variation <b>simultaneously</b>.
+        </p>
+        <div class="row align-items-center">
+            <div class="col justify-content-center text-center">
+                <video width="100%" playsinline="" autoplay="" loop="" preload="" muted="">
+                    <source src="img/object_decomp.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="section">
+        <h2>Compositional Generalization</h2>
+        <hr>
+        <p>
+        We find that inferred energy functions from COMET can further <b>generalize</b> well and can be applied concepts inferred from different modalities,
+        as well as from separate instances of COMET.
+        </p>
+
+        <div class="row align-items-center">
+            <div class="col justify-content-center text-center">
+                <video width="100%" playsinline="" autoplay="" loop="" preload="" muted="">
+                    <source src="img/generalize_decomp.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+    </div>
+
+        <div class="section">
+            <h2>Related Projects</h2>
+            <hr>
+            <p>
+                Check out our related projects on compositional energy functions! <br>
+            </p>
+
+            <div class='row vspace-top'>
+                <div class="col-sm-3">
+                    <img src='img/comp_cartoon.png' class='img-fluid'>
+                </div>
+
+                <div class="col">
+                    <div class='paper-title'>
+                        <a href="https://energy-based-model.github.io/compositional-generation-inference/">Compositional Visual Generation with Energy Based Models</a>
+                    </div>
+                    <div>
+                        We show how EBMs enable <b>zero-shot compositional</b> visual generation, enabling us to compose visual concepts
+                        (through operators of conjunction, disjunction, or negation) together in a zero-shot manner. 
+                        Our approach enables us to generate faces given a  description 
+                        ((Smiling AND Female) OR (NOT Smiling AND Male)) or to combine several different objects together.
+                    </div>
+                </div>
+            </div>
+
+            <div class='row vspace-top'>
+                <div class="col-sm-3">
+                    <video width="100%" playsinline="" autoplay="" loop="" preload="" muted="">
+                        <source src="img/uncond_gen_half.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="col">
+                    <div class='paper-title'>
+                        <a href="https://arxiv.org/abs/2012.01316">Improved Contrastive Divergence Training of Energy Based Models</a>
+                    </div>
+                    <div>
+                        We show that the traditional contrastive divergence training objective used to train EBMs
+                        is omits a important gradient term. We propose a loss to represent this missing gradient
+                        and propose additional tricks to improve EBM training. We show that our resultant models
+                        are able to generate high resolutions images and are further able to compose with each 
+                        other.
+                    </div>
+                </div>
+            </div>
+
+            <div class='row vspace-top'>
+                <div class="col-sm-3">
+                    <video width="100%" playsinline="" autoplay="" loop="" preload="" muted="">
+                        <source src="img/half.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="col">
+                    <div class='paper-title'>
+                        <a href="https://openai.com/blog/energy-based-models/">Implicit Generation and Generalization with Energy Based Models</a>
+
+                    </div>
+                    <div>
+                        We introduce a method to scale EBM training to modern neural network architectures.
+                        We show that such trained EBMs have a set of unique properties, enabling model robustness,
+                        image and trajectory modeling, continual learning and compositional visual generation.
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="section">
+                <h2>Paper</h2>
+                <hr>
+                <div>
+                    <div class="list-group">
+                        <a href=""
+                           class="list-group-item">
+                            <img src="img/paper_thumbnail.png"
+                                 style="width:100%; margin-right:-20px; margin-top:-10px;">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Bibtex</h2>
+                <hr>
+                <div class="bibtexsection">
+                    @inproceedings{du2021comet,
+                        author = {Du, Yilun
+                                  and Li, Shuang
+                                  and Sharma, Yash 
+                                  and Tenenbaum, Joshua B.
+                                  and Mordatch, Igor},
+                        title = {Unsupervised Learning of
+                                 Compositional Energies},
+                        booktitle = {arXiv},
+                        year={2021}
+                    }
+                </div>
+            </div>
+
+            <hr>
+
+            <footer>
+                <p>Send feedback and questions to <a href="https://yilundu.github.io">Yilun Du</a></p>
+            </footer>
+        </div>
+
+</body>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</html>
